@@ -27,12 +27,12 @@ CREATE TABLE user_roles
 
 CREATE TABLE meals
 (
-  id INTEGER PRIMARY KEY,
-  user_id INTEGER NOT NULL,
+  id  SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
   date_time date,
   description varchar(255),
-  calories integer,
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+  calories integer
+
 );
 
 

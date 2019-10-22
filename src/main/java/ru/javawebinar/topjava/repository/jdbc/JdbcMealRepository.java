@@ -19,8 +19,14 @@ public class JdbcMealRepository implements MealRepository {
     @Override
     public Meal save(Meal meal, int userId) {
 
-        jdbcTemplate.update("UPDATE meals SET user_id= ?, date_time= ?, description= ?, calories = ?",
-                userId, meal.getDateTime(), meal.getDescription(), meal.getCalories());
+        if(!meal.isNew()){
+            jdbcTemplate.update("UPDATE meals SET user_id= ?, date_time= ?, description= ?, calories = ? Where id = ?",
+                    userId, meal.getDateTime(), meal.getDescription(), meal.getCalories(), meal.getId());
+        }else {
+
+            jdbcTemplate.update("INSERT INTO meals  (user_id, date_time, description, calories) VALUES (?, ?, ?, ? )",
+                    userId, meal.getDateTime(), meal.getDescription(), meal.getCalories());
+        }
         return meal;
 
     }
